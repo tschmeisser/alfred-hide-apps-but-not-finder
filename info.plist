@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.tschmeisser.hideall</string>
+	<key>category</key>
+	<string>Productivity</string>
+	<key>connections</key>
+	<dict>
+		<key>45031DBF-F946-4245-ACC6-4867D9C88B1A</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>3A968E57-1B63-480B-A7BC-85A592E8C47D</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vetoed</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Travis Schmeisser</string>
+	<key>description</key>
+	<string>Hide all running apps except the focused app and minimize Finder windows, but not actually hide Finder. Why? Because I often hide the current window afterwards and if Finder is hidden, you can't!</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Hide All But Focused</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>hideall</string>
+				<key>subtext</key>
+				<string>Hide all apps except focused and Finder</string>
+				<key>text</key>
+				<string>Hide All But Focused</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>45031DBF-F946-4245-ACC6-4867D9C88B1A</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>tell application "System Events"
+	set frontApp to name of (first process whose frontmost is true)
+	set targets to (every process whose visible is true and background only is false and name is not frontApp and name is not "Finder" and name is not "Alfred")
+	repeat with proc in targets
+		set visible of proc to false
+	end repeat
+	tell process "Finder"
+		repeat with w in windows
+			try
+				set value of attribute "AXMinimized" of w to true
+			end try
+		end repeat
+	end tell
+end tell</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>6</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>3A968E57-1B63-480B-A7BC-85A592E8C47D</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string>Trigger keyword: hideall
+
+Hides every visible app except the currently focused app and Finder.
+
+Requires Accessibility permission for Alfred (System Settings &gt; Privacy &amp; Security &gt; Accessibility). First run will prompt.</string>
+	<key>uidata</key>
+	<dict>
+		<key>45031DBF-F946-4245-ACC6-4867D9C88B1A</key>
+		<dict>
+			<key>xpos</key>
+			<integer>40</integer>
+			<key>ypos</key>
+			<integer>40</integer>
+		</dict>
+		<key>3A968E57-1B63-480B-A7BC-85A592E8C47D</key>
+		<dict>
+			<key>xpos</key>
+			<integer>240</integer>
+			<key>ypos</key>
+			<integer>40</integer>
+		</dict>
+	</dict>
+	<key>version</key>
+	<string>1.0</string>
+	<key>webaddress</key>
+	<string></string>
+</dict>
+</plist>
