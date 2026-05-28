@@ -1,0 +1,1 @@
+# alfred-hide-apps-but-not-finder
