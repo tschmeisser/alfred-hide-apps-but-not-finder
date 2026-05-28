@@ -4,7 +4,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-A single-keyword Alfred workflow. Triggering `hideall` runs an AppleScript that hides every visible, foreground app except the focused app and Finder, then minimizes Finder's open windows to the Dock. Finder is intentionally kept *visible* (not hidden) so that the standard "hide current window" shortcuts still have something to fall back to.
+A small Alfred workflow with two keywords:
+
+- `hideall` — hides every visible, foreground app except the focused app and Finder, then minimizes Finder's open windows to the Dock. Finder is intentionally kept *visible* (not hidden) so the standard "hide current window" shortcuts still have something to fall back to.
+- `showfinder` — restores any minimized Finder windows (sets `AXMinimized` back to `false`) and activates Finder. Minimized windows remain in the process's window list via the Accessibility API, which is what makes this round-trip possible.
 
 Why? Because I often hide the current window afterwards and if Finder is hidden, you can't!
 
@@ -20,7 +23,7 @@ Then double-click the bundle to reinstall in Alfred (it offers to replace the ex
 
 ## Source-of-truth caveat
 
-The AppleScript is **inlined** inside `info.plist` under the script action's `script` key — that's what Alfred actually executes. `hide.applescript` is a standalone mirror kept only so the script is browsable on GitHub without parsing XML. If you edit one, update the other.
+Both AppleScripts are **inlined** inside `info.plist` under each script action's `script` key — that's what Alfred actually executes. `hide.applescript` and `showfinder.applescript` are standalone mirrors kept only so the scripts are browsable on GitHub without parsing XML. If you edit one, update the other.
 
 ## Alfred script-type gotcha
 
